@@ -59,9 +59,11 @@ body {
 }
 #dir_span{
 	 color: #007098;
-	 font-family: "SourceSansPro-Bold";
-	font-weight: bold;
+ 	 font-family: "SourceSansPro-Bold";
+/* 	font-weight: bold;
+	font-family: "SourceSansPro-Regular"; */
 	font-size: 14px;
+	
 }
 .dummy_popup{
 	 position:absolute;
@@ -455,7 +457,7 @@ span{
     width: 100%;
     /* min-height: 77px; */
     /* opacity: 0; */
-    font-family: "SourceSansPro-Bold";
+    font-family: "SourceSansPro-Regular";
     font-size: 14px;
     /* text-align: center; */
     display: none;
