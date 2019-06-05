@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, maximum-scale=5.0,minimum-scale=1.0, minimal-ui">
+	<meta name="HandheldFriendly" content="true" />
+    <title>Slider multiple image</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <script type="text/javascript" src="assets/js/lib/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/lib/jquery-ui.js"></script>
+    <script type="text/javascript" src="assets/js/lib/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="assets/js/script.js"></script>
+</head>
+<body>
+	<a href='#begin_btn' style='position:absolute;top:-5000px'>123</a>
+	<div role='main' style='display:none'></div>
+	<div role='navigation' style='display:none'></div>
+	<div id='whole_container' >
+		
+		<div class="preload">
+            <div class="loader"></div>
+        </div> 
+		
+		<div id='begin_page'>
+			<div id='begin_dummy' role='none'></div>
+			<div  id='begin_cont'  role='none'>
+				<img id='begin_container' role='img' src='./assets/images/6-1_static.png' alt='U.S. acres burned in 2015, compared to 2001-2010 average'/>
+			</div>
+			<div role='button' id='begin_btn' aria-label='Begin'>Begin</div>
+			<div id='begin_reverse_dummy' role='none'></div>
+		</div>
+		
+		
+		<div id='dummy_1' role='none'>???</div>
+		<h1 id='text_container' role='heading' aria-level='1'></h1>
+		<div id='heading_text' role='none'></div>
+		<div id='responsive_whole'>
+			<div id='responsive_container'>
+				 <div class="imageCont" role="none" aria-label='To reveal the impact of Alaskan wildfires'>
+				    <img class="imgC img1" src="./assets/images/6-1_slide1.png" alt="reveal"></img>
+					<img class="imgC img2" src="./assets/images/6-1_slide2.png" alt="wildfires"></img>
+				 </div>
+			</div>
+		</div>
+		
+		<!-- Slider functionality -->
+		
+		<div class="slider" id="slide_cont">
+            <div class="sliderBar">
+                <div id="slider" class="sliderCustomize"></div>
+            </div>
+           <div class="labels" >
+                <div  id="label1" ></div>
+                <div  id="label2" ></div>
+                <div  id="label3" ></div>
+                <div  id="label4" ></div>
+                <div  id="label5" ></div>
+                <div  id="label6" ></div>
+                <div  id="label7" ></div>
+                <div  id="label8" ></div>
+            </div>
+        </div>
+		<div id='btn_container'>
+			<div role='button' id='reset_btn' aria-label='Reset'>Reset</div>
+		</div>
+		<div id='dummy_2' role='none'>???</div>
+	</div>
+<script>
+		$.holdReady(true);
+		var preloadComplete=false;
+		$.getScript("./assets/js/lib/preloadjs-0.6.2.min.js", function() {
+			$.holdReady(false);
+			manifest = [
+				"assets/images/common/loading.gif",
+				"assets/images/common/close_btn.png",
+				"assets/images/6-1_slide1.png",
+				"assets/images/6-1_slide2.png",
+				"assets/images/6-1_static.png",
+				"assets/images/notch.png"
+			];
+			preload = new createjs.LoadQueue(true);
+			preload.addEventListener("progress", function() {
+				console.log('Updating preloading progress...'+Math.round(preload.progress*100)+"%");
+			});
+			preload.addEventListener("complete", function(){
+				$('.preload').fadeOut();
+			});
+			preload.setMaxConnections(5);
+			preload.loadManifest(manifest);
+		});
+</script>
+<script type="text/javascript" src="assets/js/lib/preloadjs-0.6.2.min.js"></script>
+<script type="text/javascript" src="assets/js/lib/fitToScreen.js"></script>
+    <script type="text/javascript" src="assets/js/data.js"></script>
+</body>
+</html>
