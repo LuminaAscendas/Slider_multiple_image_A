@@ -10,11 +10,11 @@ $(document).ready(function(){
 		$('#begin_page,#begin_btn').hide();
 		$('#responsive_container,#text_container, #heading_text').fadeIn(1000);
 		$('.slider').fadeIn(1000);
-		resizeApp();
-		set_tab()
 		$('#whole_container').attr('role','application');
 		$('a').attr('href','#reset_btn');
 		$('#reset_btn').show();
+		resizeApp();
+		set_tab()
 	})
 
 
@@ -78,7 +78,8 @@ $(document).ready(function(){
 	}
 	/*Slider function start here*/
 	        $( "#slider" ).slider({
-                range: "max",
+               	orientation: 'horizontal',
+				range: false,
                 min: 1,
                 max: 2,
                 value:1,

@@ -1,5 +1,5 @@
 
-var cont = document.getElementById('responsive_container');
+var cont = document.getElementById('responsive_whole');
 var	cont_1 = document.getElementById('begin_page');
 //var	cont_2 = document.getElementById('label_cont');
 var	cont_3 = document.getElementById('reset_btn');
@@ -48,11 +48,12 @@ function resizeApp(){
 		winHeight = window.innerHeight; //retrieve current window height
 	  	if(winWidth-60 < appWidth || winHeight-60 < appHeight)
         {
-	   scale = (((winWidth/appWidth)<(winHeight/appHeight))?(winWidth/appWidth):(winHeight/appHeight))//-0.01//-0.15; //scaling
+	   scale = (((winWidth/appWidth)<(winHeight/appHeight))?(winWidth/appWidth):(winHeight/appHeight))//-0.20//-0.15; //scaling
+
         }
             else {
                 
-                scale=1;
+                scale=.8;
             }
 			
 			cont.style.msTransformOrigin = '0 0';	
@@ -93,7 +94,7 @@ function resizeApp(){
 			$('body').css('height',(bodyheight)+'px');
 			$('body').css('background-size','100% '+(bodyheight)+'px');
 			//document.getElementById('whole_container').style.left = ((winWidth - appWidth )/2)+'px';
-			$('#whole_container').css('height',($("#responsive_container").height()*scale)+$("#text_container").height());
+			$('#whole_container').css('height',($("#responsive_whole").height()*scale)+$("#text_container").height());
 			$('#whole_container').css('width',$("#responsive_container").width()*scale-0.01);
 			console.log($('.sliderBar').width()/scale)
 //			$('.sliderBar').width($('.sliderBar').width()*scale);
