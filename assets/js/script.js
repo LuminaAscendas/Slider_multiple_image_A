@@ -95,7 +95,34 @@ $(document).ready(function(){
 				$('.ui-slider,.ui-slider-range').addClass('sliderRange');
 				$('.ui-slider-handle').bind('keyup',showTextFn)
 			},100)
-	/*Slider function end here*/		
+	/*Slider function end here*/
+		var flag_touch=0;
+	if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {		
+	$(document).on('click touchstart', '.ui-slider-handle', function(event){
+					if(event.handled === false) return
+					event.stopPropagation();
+					event.preventDefault();
+					event.handled = true;
+					$("#slider").slider("option", "values", [value[flag_touch]]);
+					var isAndroid = /(android)/i.test(navigator.userAgent);	
+					if(isAndroid){
+						setTimeout(function(){
+							$('.ui-slider-handle').blur()//.focus();
+							setTimeout(function(){
+								$('.ui-slider-handle').focus()
+							},5)
+						},10)
+					}
+				
+					flag_touch++
+					if(flag_touch>value.length-1){
+						flag_touch=0
+					}
+			});
+	}
+
+
+	
 			
 });
 $(window).resize(function(){

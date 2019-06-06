@@ -116,15 +116,15 @@ clicked {
 	opacity:0;
 }
 
-.text_container{
+/* .text_container{
 	width:100%;
-/*	padding: 5px;*/
+//	padding: 5px;
     font-size: 14px;
 	font-family: "SourceSansPro-Regular";
 	position: relative;
 	display:none;
 	top:2px;
-}
+} */
 #textcont_1{
 	display:block;
 }
@@ -463,6 +463,7 @@ span{
     display: none;
     top: 18px;
     position: relative;
+	font-weight:normal;
 }
 .sliderBar{
   position: relative;
