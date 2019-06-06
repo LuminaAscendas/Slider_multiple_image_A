@@ -98,27 +98,30 @@ $(document).ready(function(){
 	/*Slider function end here*/
 		var flag_touch=0;
 	if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {		
-	$(document).on('click touchstart', '.ui-slider-handle', function(event){
-					if(event.handled === false) return
-					event.stopPropagation();
-					event.preventDefault();
-					event.handled = true;
-					$("#slider").slider("option", "values", [value[flag_touch]]);
-					var isAndroid = /(android)/i.test(navigator.userAgent);	
-					if(isAndroid){
+$(document).on('click touchstart', '.ui-slider-handle', function(event){
+//			if ($(".ui-slider-handle").is(":focus")) {
+				//alert()
+				if(event.handled === false) return
+				event.stopPropagation();
+				event.preventDefault();
+				event.handled = true;
+				$("#slider").slider("option", "values", [value[flag_touch]]);
+				var isAndroid = /(android)/i.test(navigator.userAgent);	
+				if(isAndroid){
+					setTimeout(function(){
+						$('.ui-slider-handle').blur()//.focus();
 						setTimeout(function(){
-							$('.ui-slider-handle').blur()//.focus();
-							setTimeout(function(){
-								$('.ui-slider-handle').focus()
-							},5)
-						},10)
-					}
-				
-					flag_touch++
-					if(flag_touch>value.length-1){
-						flag_touch=0
-					}
-			});
+							$('.ui-slider-handle').focus()
+						},5)
+					},10)
+				}
+			
+				flag_touch++
+				if(flag_touch>value.length-1){
+					flag_touch=0
+				}
+//			}
+		});
 	}
 
 

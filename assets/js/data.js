@@ -1,6 +1,8 @@
 var direction_text='<span id="dir_span">Directions:</span> Drag the slider to reveal the impact of Alaskan wildfires from June 2015 to September 2015.'
 var value = [0, 100];
 
+var values = [Math.round(0/scale), Math.round(93/scale)];
+
 
 var data = [{
     "description": [
