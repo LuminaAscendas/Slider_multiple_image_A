@@ -498,6 +498,7 @@ span{
   padding:0px 4px 0px;
 /*	border:1px solid red;*/
 /*	width: 492px;*/
+	display:none;
 }
 
 .label{
