@@ -86,7 +86,7 @@ var slider = $("#slider").slider({
 	  max: 2,
 	  values: [0],
 	  value:1,
-      step:0.05,
+      step:0.01,
 	
 		
 	  slide: function(event, ui) {
@@ -181,13 +181,17 @@ function adjustSlider(val){
 			slideEnd=2;
 			$('#ui_handler').css('left','100%');
 			$('#heading_text').html(data[0].description[1]);	
-			$('#heading_text').attr('aria-label',$('#heading_text').text());	
+			$('#heading_text').attr('aria-label',$('#heading_text').text());
+			$('.ui-slider-handle').attr('aria-label','Dark-red burn areas mark the burn scars where many wildfires destroyed the Alaskan landscape during June - August of 2015. At the peak of the summer wildfire season, multiple wildfires can break out each day.');	
+		  $("#slider").slider("values", "0", 2);
 	  }
 	  else{ 
 			slideEnd=1;
 			$('#ui_handler').css('left','0%');
 			$('#heading_text').html(data[0].description[0]);	
 			$('#heading_text').attr('aria-label',$('#heading_text').text());	
+		  	$('.ui-slider-handle').attr('aria-label','Wildfires burned more than 5 million acres of the Alaskan landscape over two months during the summer of 2015. NASA satellite images captured the resulting fire damage.');
+			$("#slider").slider("values", "0", 1);
 	  }
 	displayImg(slideEnd);
 	console.log('adustjest slider',val,slideEnd);

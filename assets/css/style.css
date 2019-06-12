@@ -316,6 +316,8 @@ clicked {
     position: relative;
     top: 32px;
 	min-height: 36px;
+ 	width: 100%;
+    height: 60px;
 	display:none;
 }
 #reset_btn{
@@ -519,7 +521,7 @@ span{
 } 
 .label:before{
 	content:'|'
-}/* 
+} 
 @media screen and (max-width: 780px) {
 	#heading_text{
 		width:100%;
@@ -559,7 +561,7 @@ span{
 	}
 
 }
- */
+ 
 
 
 
