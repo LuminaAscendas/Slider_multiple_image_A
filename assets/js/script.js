@@ -86,7 +86,7 @@ var slider = $("#slider").slider({
 	  max: 2,
 	  values: [0],
 	  value:1,
-      step:0.01,
+      step:0.8,
 	
 		
 	  slide: function(event, ui) {
