@@ -86,7 +86,7 @@ var slider = $("#slider").slider({
 	  max: 2,
 	  values: [0],
 	  value:1,
-      step:0.8,
+      step:0.25,
 	
 		
 	  slide: function(event, ui) {
@@ -120,25 +120,25 @@ var slider = $("#slider").slider({
 $(document).on('click touchstart', '.ui-slider-handle', function(event){
 //			if ($(".ui-slider-handle").is(":focus")) {
 				//alert()
-				if(event.handled === false) return
+				/* if(event.handled === false) return
 				event.stopPropagation();
 				event.preventDefault();
 				event.handled = true;
-				$("#slider").slider("option", "values", [value[flag_touch]]);
+				$("#slider").slider("option", "values", [value[flag_touch]]); */
 				var isAndroid = /(android)/i.test(navigator.userAgent);	
 				if(isAndroid){
-					setTimeout(function(){
+					//setTimeout(function(){
 						$('.ui-slider-handle').blur()//.focus();
 						setTimeout(function(){
 							$('.ui-slider-handle').focus()
-						},5)
-					},10)
+						},100)
+					//},10)
 				}
-			
+			/* 
 				flag_touch++
 				if(flag_touch>value.length-1){
 					flag_touch=0
-				}
+				} */
 //			}
 		});
 	}
