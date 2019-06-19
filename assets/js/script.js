@@ -75,6 +75,7 @@ $(document).ready(function(){
 		setTimeout(function(){
 			$('.ui-slider-handle').removeAttr('role');
 		},10)
+		
 	}
 	/*Dinesh codding*/
 	
@@ -86,7 +87,7 @@ var slider = $("#slider").slider({
 	  max: 2,
 	  values: [0],
 	  value:1,
-      step:0.25,
+      step:0.01,
 	
 		
 	  slide: function(event, ui) {
@@ -114,10 +115,16 @@ var slider = $("#slider").slider({
 	  }
   });
 	
+	if (/MSIE 10/i.test(navigator.userAgent) || /MSIE 9/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent) ||/Edge\/\d./i.test(navigator.userAgent)) {
+		slider = $("#slider").slider({
+			step:0.8	
+		})
+	}
+	
 			
 		var flag_touch=0;
 	if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {		
-$(document).on('click touchstart', '.ui-slider-handle', function(event){
+$(document).on('click touchend', '.ui-slider-handle', function(event){
 //			if ($(".ui-slider-handle").is(":focus")) {
 				//alert()
 				/* if(event.handled === false) return
@@ -131,7 +138,7 @@ $(document).on('click touchstart', '.ui-slider-handle', function(event){
 						$('.ui-slider-handle').blur()//.focus();
 						setTimeout(function(){
 							$('.ui-slider-handle').focus()
-						},100)
+						},200)
 					//},10)
 				}
 			/* 

@@ -12853,7 +12853,7 @@ var slider = $.widget( "ui.slider", $.ui.mouse, {
 		var i, handleCount,
 			options = this.options,
 			existingHandles = this.element.find( ".ui-slider-handle" ).addClass( "ui-state-default ui-corner-all" ),
-			handle = "<div id='ui_handler' role='slider' class='ui-slider-handle ui-state-default ui-corner-all' aria-label='slider' title='Wildfires burned more than 5 million acres of the Alaskan landscape over two months during the summer of 2015. NASA satellite images captured the resulting fire damage.'></div>",
+			handle = "<div id='ui_handler' role='slider' class='ui-slider-handle ui-state-default ui-corner-all' aria-label='Wildfires burned more than 5 million acres of the Alaskan landscape over two months during the summer of 2015. NASA satellite images captured the resulting fire damage.'></div>",
 			handles = [];
 
 		handleCount = ( options.values && options.values.length ) || 1;
