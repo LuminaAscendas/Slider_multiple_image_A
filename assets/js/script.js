@@ -2,6 +2,12 @@ var begin_entered=false;
 var cont_width;
 $(document).ready(function(){
 	
+	obj=document.getElementById("handle");
+	obj.addEventListener("touchstart", touchHandler, true);
+	obj.addEventListener("touchmove", touchHandler, true);
+	obj.addEventListener("touchend", touchHandler, true);
+	obj.addEventListener("touchcancel", touchHandler, true); 
+	
 	
 	$(document).delegate('.ui-page', 'touchmove', false);
 	$('#begin_btn').off('click').on('click',function(){
@@ -121,6 +127,7 @@ var slider = $("#slider").slider({
 		slider = $("#slider").slider({
 			step:0.8	
 		})
+		
 	}
 	
 			
@@ -285,7 +292,7 @@ $('.ui-slider,.ui-slider-range').addClass('sliderRange');
 //$('#text_container').attr('aria-label',$('#text_container').text())
 
 
-/*Dinesh code end */
+
 	$('#handle').attr('aria-label',$('#heading_text').text());
 	document.body.onkeyup = function(e){
 		if(e.keyCode == 32 || e.keyCode == 13){
@@ -296,6 +303,11 @@ $('.ui-slider,.ui-slider-range').addClass('sliderRange');
 			}
 			
 		}
+		
+	}
+	if (/MSIE 10/i.test(navigator.userAgent) || /MSIE 9/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent) ||/Edge\/\d./i.test(navigator.userAgent)) {
+
+		$('#handle').append('<style>#handle:after{font-size:20px;margin-top:5px;}</style>');
 		
 	}
 			
@@ -347,16 +359,43 @@ function handleDragByKey(event) {
 			$('#handle').css('left',dragCount+'%');
 			$('.resize').css('width',dragCount+'%');
 		}
-		
+		$('#handle').attr('aria-valuenow',Math.round(dragCount));		
 		if(dragCount<5){
 			$('#heading_text').html(data[0].description[0]);	
 			$('#heading_text').attr('aria-label',$('#heading_text').text());
 			$('#handle').attr('aria-label',$('#heading_text').text());
-			$('#handle').attr('aria-valuenow',Math.round(dragCount));
+
 		}	
 		else if(dragCount>95){
 			$('#heading_text').html(data[0].description[1]);	
 			$('#heading_text').attr('aria-label',$('#heading_text').text());	
-			$('#handle').attr('aria-valuenow',Math.round(dragCount));
+			$('#handle').attr('aria-label',$('#heading_text').text());
 		}
+}
+
+
+/*********************************************/
+
+
+function touchHandler(event){
+	event.preventDefault();
+	var touches = event.changedTouches,
+		first = touches[0],
+		type = "";
+
+		 switch(event.type)
+	{
+		case "touchstart": type = "mousedown"; break;
+		case "touchmove":  type="mousemove"; break;        
+		case "touchend":   type="mouseup"; break;
+		default: return;
+	}
+
+			//initMouseEvent(type, canBubble, cancelable, view, clickCount,
+	//           screenX, screenY, clientX, clientY, ctrlKey,
+	//           altKey, shiftKey, metaKey, button, relatedTarget);
+	
+	var simulatedEvent = document.createEvent("MouseEvent");
+	simulatedEvent.initMouseEvent(type, true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0, null);
+	first.target.dispatchEvent(simulatedEvent);
 }
