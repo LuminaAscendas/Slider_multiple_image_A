@@ -14,7 +14,9 @@ $(document).ready(function(){
 		$('a').attr('href','#reset_btn');
 		$('#reset_btn').show();
 		resizeApp();
-		set_tab()
+		set_tab();
+		$("#handle").off('keydown').on('keydown', handleDragByKey);
+		
 	})
 
 
@@ -25,7 +27,7 @@ $(document).ready(function(){
 	$('.imageCont,#begin_container').mouseleave(function() {
   		$( ".imageCont,#begin_container" ).removeAttr('title');
 	});
-	$('.img1').css('opacity','1');
+	//$('.img1').css('opacity','1');
 	$('#text_container').html(direction_text);
 	$('#text_container').attr('aria-label',$('#text_container').text())
 	
@@ -83,11 +85,11 @@ $(document).ready(function(){
 var slider = $("#slider").slider({
 	  orientation: 'horizontal',
 	  range: false,
-	  min: 1,
-	  max: 2,
+	  min: 0,
+	  max: 100,
 	  values: [0],
 	  value:1,
-      step:0.01,
+      step:1,
 	
 		
 	  slide: function(event, ui) {
@@ -99,7 +101,7 @@ var slider = $("#slider").slider({
 		  //console.log(ui.value);
 			displayImage(ui.value);
 		  //console.log(":::::::::::::::::::::",(getRealValue(slider.slider('values', 0))+rangePercent))
-		  console.log("start point", (ui.value))
+		  //console.log("start point", (ui.value))
 		  return false;
 		  
 	  },
@@ -182,23 +184,24 @@ function getRangePercent(value){
 
  var slideEnd=1;    
 function adjustSlider(val){
+
 	$( "#slider" ).slider("value",val);
 	slideEnd = val;
 	  if(slideEnd>=1.5){
-			slideEnd=2;
-			$('#ui_handler').css('left','100%');
+			//slideEnd=2;
+			//$('#ui_handler').css('left','100%');
 			$('#heading_text').html(data[0].description[1]);	
 			$('#heading_text').attr('aria-label',$('#heading_text').text());
 			$('.ui-slider-handle').attr('aria-label','Dark-red burn areas mark the burn scars where many wildfires destroyed the Alaskan landscape during June - August of 2015. At the peak of the summer wildfire season, multiple wildfires can break out each day.');	
-		  $("#slider").slider("values", "0", 2);
+		 // $("#slider").slider("values", "0", 2);
 	  }
 	  else{ 
-			slideEnd=1;
-			$('#ui_handler').css('left','0%');
+			//slideEnd=1;
+			//$('#ui_handler').css('left','0%');
 			$('#heading_text').html(data[0].description[0]);	
 			$('#heading_text').attr('aria-label',$('#heading_text').text());	
 		  	$('.ui-slider-handle').attr('aria-label','Wildfires burned more than 5 million acres of the Alaskan landscape over two months during the summer of 2015. NASA satellite images captured the resulting fire damage.');
-			$("#slider").slider("values", "0", 1);
+			//$("#slider").slider("values", "0", 1);
 	  }
 	displayImg(slideEnd);
 	console.log('adustjest slider',val,slideEnd);
@@ -230,29 +233,31 @@ String.prototype.replaceAt=function(index, character) {
         var decimalAfterVal = Number(String(val).split(".")[1]);
         var nxtImg = -1;
         var decimalFirstVal = Number(String(val).replaceAt(0, "0"));
-
+console.log("thirumal",val, decimalFirstVal);
         if (decimalFirstVal+'' != 'undefined' && ! isNaN(decimalFirstVal))
         {
             nxtImg = roundVal + 1;
         }else{
-            decimalFirstVal = 0;
+            //decimalFirstVal = 0;
         }
 
         if (nxtImg != -1)
         {
-            //console.log(val,">>>>",roundVal, nxtImg)
+            //console.log(decimalFirstVal)
             var inc = decimalFirstVal;
             var dec = 100-decimalFirstVal;
+			var sliderPer=100-val;
+			console.log(sliderPer,decimalFirstVal)
 			
             //$('.textDiv').html(data[0].description[nxtImg-2]); 
 
-            $(".imgC").css({'-ms-filter':'"progid:DXImageTransform.Microsoft.Alpha(Opacity='+0+')"', 
+           /*   $(".imgC").css({'-ms-filter':'"progid:DXImageTransform.Microsoft.Alpha(Opacity='+0+')"', 
             'filter': 'alpha(opacity='+0+')',
             '-moz-opacity':(0/100),
             '-khtml-opacity': (0/100),
            'opacity': (0/100)});
 
-            $(".img"+roundVal).css({'-ms-filter':'"progid:DXImageTransform.Microsoft.Alpha(Opacity='+dec+')"', 
+           $(".img"+roundVal).css({'-ms-filter':'"progid:DXImageTransform.Microsoft.Alpha(Opacity='+dec+')"', 
             'filter': 'alpha(opacity='+dec+')',
             '-moz-opacity':(dec/100),
             '-khtml-opacity': (dec/100),
@@ -262,7 +267,9 @@ String.prototype.replaceAt=function(index, character) {
             'filter': 'alpha(opacity='+inc+')',
             '-moz-opacity':(inc),
             '-khtml-opacity': (inc),
-           'opacity': (inc)});
+           'opacity': (inc)}); */
+		   
+		   $(".sliderR").css({'width': sliderPer+'%'});
         }
 
         /*
@@ -279,157 +286,27 @@ $('.ui-slider,.ui-slider-range').addClass('sliderRange');
 
 
 /*Dinesh code end */
-	
-	
-	/*Slider function start here*/
-/* 	        $( "#slider" ).slider({
-               	orientation: 'horizontal',
-				range: false,
-                min: 1,
-                max: 2,
-                value:1,
-                step:0.01,
-                slide: function( event, ui ) {
-                   displayImage(ui.value);
-                },
-                stop: function( event, ui ) {
-                    adjustSlider(ui.value);
-                }
-            });
-			setTimeout(function(){
-				$('.ui-slider-handle').addClass('customPlayhead').addClass('tabindex');
-				$('.ui-slider,.ui-slider-range').addClass('sliderRange');
-				$('.ui-slider-handle').bind('keyup',showTextFn)
-			},100) */
-	/*Slider function end here*/
-		/* var flag_touch=0;
-	if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {		
-$(document).on('click touchstart', '.ui-slider-handle', function(event){
-//			if ($(".ui-slider-handle").is(":focus")) {
-				//alert()
-				if(event.handled === false) return
-				event.stopPropagation();
-				event.preventDefault();
-				event.handled = true;
-				$("#slider").slider("option", "values", [value[flag_touch]]);
-				var isAndroid = /(android)/i.test(navigator.userAgent);	
-				if(isAndroid){
-					setTimeout(function(){
-						$('.ui-slider-handle').blur()//.focus();
-						setTimeout(function(){
-							$('.ui-slider-handle').focus()
-						},5)
-					},10)
-				}
+	$('#handle').attr('aria-label',$('#heading_text').text());
+	document.body.onkeyup = function(e){
+		if(e.keyCode == 32 || e.keyCode == 13){
+			e.preventDefault(e);
+			if(e.target.id!='label_head_1'||e.target.id!='label_head_2'||e.target.id!='label_head_3'){
+				$('#'+e.target.id).trigger('click');
+				$('#'+e.target.id).focus();
+			}
 			
-				flag_touch++
-				if(flag_touch>value.length-1){
-					flag_touch=0
-				}
-//			}
-		});
+		}
+		
 	}
- */
-
-	
 			
 });
 $(window).resize(function(){
   resizeApp();
+  
+  //
 });	
 
-/*Slider strt*/
 
-    /*  function showTextFn(e){
-       if(e.type=="keyup" && e.keyCode !=13){
-         console.log('thr', e.keyCode)
-                return  true;
-        }
-        var sliderVal = $( "#slider" ).slider( "value" );
-		
-        if (sliderVal>=1 && sliderVal<=10) {
-            sliderVal = sliderVal+1;
-        }
-        if (sliderVal > 10) {
-            sliderVal = 1;
-            $( "#slider" ).slider("value",Math.round(sliderVal));
-            displayImage(sliderVal)
-			alert('1 tthe');
-			
-        }else{
-            $( "#slider" ).slider("value",Math.round(sliderVal));
-            displayImage(sliderVal);
-			alert('2 tthe');
-        }
-    }
-	var flagYear=false;
-	function adjustSlider(val){
-        console.log("Val: "+Math.round(val))
-		
-		if(val==2){
-			$('#heading_text').html(data[0].description[1]);	
-			$('#heading_text').attr('aria-label',$('#heading_text').text());	
-            $('.ui-slider-handle').attr('aria-label',"september");
- 			flagYear=true;
-		
-		}else{
-			$('#heading_text').html(data[0].description[0]);	
-			$('#heading_text').attr('aria-label',$('#heading_text').text());	
-            $('.ui-slider-handle').attr('aria-label',"june");
-			flagYear=false;	
-		}
-		
-        $( "#slider" ).slider("value",Math.round(val));
-        displayImg(Math.round(val));
-    }
-    function displayImage(val){
-        displayImg(val);
-    }
-    String.prototype.replaceAt=function(index, character) {
-    return this.substr(0, index) + character + this.substr(index+character.length);
-    }
-    function displayImg(val){
-        var roundVal = Number(String(val).split(".")[0]);
-        var decimalAfterVal = Number(String(val).split(".")[1]);
-        var nxtImg = -1;
-        var decimalFirstVal = Number(String(val).replaceAt(0, "0"));
-
-        if (decimalFirstVal+'' != 'undefined' && ! isNaN(decimalFirstVal))
-        {
-            nxtImg = roundVal + 1;
-        }else{
-            decimalFirstVal = 0;
-        }
-
-        if (nxtImg != -1)
-        {
-            console.log(val,">>>>",roundVal, nxtImg)
-            var inc = decimalFirstVal;
-            var dec = 100-decimalFirstVal;
-			
-            $('.textDiv').html(data[0].description[nxtImg-2]); 
-
-            $(".imgC").css({'-ms-filter':'"progid:DXImageTransform.Microsoft.Alpha(Opacity='+0+')"', 
-            'filter': 'alpha(opacity='+0+')',
-            '-moz-opacity':(0/100),
-            '-khtml-opacity': (0/100),
-           'opacity': (0/100)});
-
-            $(".img"+roundVal).css({'-ms-filter':'"progid:DXImageTransform.Microsoft.Alpha(Opacity='+dec+')"', 
-            'filter': 'alpha(opacity='+dec+')',
-            '-moz-opacity':(dec/100),
-            '-khtml-opacity': (dec/100),
-           'opacity': (dec/100)});
-
-            $(".img"+nxtImg).css({'-ms-filter':'"progid:DXImageTransform.Microsoft.Alpha(Opacity='+inc+')"', 
-            'filter': 'alpha(opacity='+inc+')',
-            '-moz-opacity':(inc),
-            '-khtml-opacity': (inc),
-           'opacity': (inc)});
-        }
-
-	} */	
-/*Slider function end here*/
 // Tab functionality
 function set_tab(){
 	if(begin_entered==false){
@@ -440,8 +317,9 @@ function set_tab(){
 	}else{
 		$('.tab_index').removeClass('tab_index').removeAttr('tabindex');
 		$('#text_container').addClass('tab_index');
-		$('.imageCont').addClass('tab_index');
+		//$('.imageCont').addClass('tab_index');
 		$('.ui-slider-handle').addClass('tab_index');
+		$('#handle').addClass('tab_index');
 		$('#reset_btn').addClass('tab_index');
 		$('.close_button').addClass('tab_index');
 	
@@ -450,4 +328,35 @@ function set_tab(){
 	$('.tab_index').each(function(){
     		$('.tab_index').attr('tabindex','0');
   });
+}
+
+function handleDragByKey(event) {
+
+		var dragCount=$('#handle').position().left / $('#handle').parent().width() * 100
+        if (event.type == "keydown" && event.keyCode != 39 && event.keyCode != 37) {
+            return true;
+        }
+		console.log(dragCount)
+        event.preventDefault();
+        if(event.keyCode==39 && dragCount<=98){
+			dragCount++;
+			$('#handle').css('left',dragCount+'%');
+			$('.resize').css('width',dragCount+'%');
+		}else if(event.keyCode==37 && dragCount>1){
+			dragCount--;
+			$('#handle').css('left',dragCount+'%');
+			$('.resize').css('width',dragCount+'%');
+		}
+		
+		if(dragCount<5){
+			$('#heading_text').html(data[0].description[0]);	
+			$('#heading_text').attr('aria-label',$('#heading_text').text());
+			$('#handle').attr('aria-label',$('#heading_text').text());
+			$('#handle').attr('aria-valuenow',Math.round(dragCount));
+		}	
+		else if(dragCount>95){
+			$('#heading_text').html(data[0].description[1]);	
+			$('#heading_text').attr('aria-label',$('#heading_text').text());	
+			$('#handle').attr('aria-valuenow',Math.round(dragCount));
+		}
 }
