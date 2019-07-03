@@ -33,7 +33,6 @@ $(document).ready(function(){
 	$('.imageCont,#begin_container').mouseleave(function() {
   		$( ".imageCont,#begin_container" ).removeAttr('title');
 	});
-	//$('.img1').css('opacity','1');
 	$('#text_container').html(direction_text);
 	$('#text_container').attr('aria-label',$('#text_container').text())
 	
@@ -77,220 +76,9 @@ $(document).ready(function(){
 	$('#text_container').on('focus', function(event){
 		$('#heading_text').addClass('tab_index').attr('tabindex','0');
 	})
-	
-	var isAndroid = /(android)/i.test(navigator.userAgent);	
-	if(isAndroid){
-		setTimeout(function(){
-			$('.ui-slider-handle').removeAttr('role');
-		},10)
-		
-	}
-	/*Dinesh codding*/
+
 	
 	
-var slider = $("#slider").slider({
-	  orientation: 'horizontal',
-	  range: false,
-	  min: 0,
-	  max: 100,
-	  values: [0],
-	  value:1,
-      step:1,
-	
-		
-	  slide: function(event, ui) {
-		  var includeLeft = event.keyCode != $.ui.keyCode.RIGHT;
-		  var includeRight = event.keyCode != $.ui.keyCode.LEFT;
-		  var value = findNearest(includeLeft, includeRight, Math.round(ui.value));
-		  slider.slider('values', 0, ui.value);
-	      //rangePercent = getRangePercent(ui.value);
-		  //console.log(ui.value);
-			displayImage(ui.value);
-		  //console.log(":::::::::::::::::::::",(getRealValue(slider.slider('values', 0))+rangePercent))
-		  //console.log("start point", (ui.value))
-		  return false;
-		  
-	  },
-	  stop: function( event, ui ) {
-		  var includeLeft = event.keyCode != $.ui.keyCode.RIGHT;
-		  var includeRight = event.keyCode != $.ui.keyCode.LEFT;
-		  var value = findNearest(includeLeft, includeRight, ui.value);
-		  slider.slider('values', 0, ui.value);
-		  //console.log("end point", ui.value);
-		  //adjustSlider((getRealValue(slider.slider('values', ui.value))));
-		  
-		  adjustSlider(ui.value);
-	  }
-  });
-	
-	if (/MSIE 10/i.test(navigator.userAgent) || /MSIE 9/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent) ||/Edge\/\d./i.test(navigator.userAgent)) {
-		slider = $("#slider").slider({
-			step:0.8	
-		})
-		
-	}
-	
-			
-		var flag_touch=0;
-	if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {		
-$(document).on('click touchend', '.ui-slider-handle', function(event){
-//			if ($(".ui-slider-handle").is(":focus")) {
-				//alert()
-				/* if(event.handled === false) return
-				event.stopPropagation();
-				event.preventDefault();
-				event.handled = true;
-				$("#slider").slider("option", "values", [value[flag_touch]]); */
-				var isAndroid = /(android)/i.test(navigator.userAgent);	
-				if(isAndroid){
-					//setTimeout(function(){
-						$('.ui-slider-handle').blur()//.focus();
-						setTimeout(function(){
-							$('.ui-slider-handle').focus()
-						},200)
-					//},10)
-				}
-			/* 
-				flag_touch++
-				if(flag_touch>value.length-1){
-					flag_touch=0
-				} */
-//			}
-		});
-	}
-function findNearest(includeLeft, includeRight, value) {
-	var nearest = null;
-	var diff = null;
-	for (var i = 0; i < values.length; i++) {
-		if ((includeLeft && values[i] <= value) || (includeRight && values[i] >= value)) {
-			var newDiff = Math.abs(value - values[i]);
-			if (diff == null || newDiff < diff) {
-				nearest = values[i];
-				diff = newDiff;
-			}
-		}
-	}
-	return nearest;
-}
-	
-function getRangePercent(value){
-	var firstVal = values[0];
-	var secondVal = values[values.length-1];
-	for (var i = 0; i < value.length; i++) {
-		if (value <= value[i])
-		{
-			secondVal = value[i];
-			break;
-		}
-		firstVal = value[i];
-	}
-	var valA = secondVal-firstVal;
-	var valB = value-firstVal;
-	return Number((valB/valA).toFixed(2));
-}
-
- var slideEnd=1;    
-function adjustSlider(val){
-
-	$( "#slider" ).slider("value",val);
-	slideEnd = val;
-	  if(slideEnd>=1.5){
-			//slideEnd=2;
-			//$('#ui_handler').css('left','100%');
-			$('#heading_text').html(data[0].description[1]);	
-			$('#heading_text').attr('aria-label',$('#heading_text').text());
-			$('.ui-slider-handle').attr('aria-label','Dark-red burn areas mark the burn scars where many wildfires destroyed the Alaskan landscape during June - August of 2015. At the peak of the summer wildfire season, multiple wildfires can break out each day.');	
-		 // $("#slider").slider("values", "0", 2);
-	  }
-	  else{ 
-			//slideEnd=1;
-			//$('#ui_handler').css('left','0%');
-			$('#heading_text').html(data[0].description[0]);	
-			$('#heading_text').attr('aria-label',$('#heading_text').text());	
-		  	$('.ui-slider-handle').attr('aria-label','Wildfires burned more than 5 million acres of the Alaskan landscape over two months during the summer of 2015. NASA satellite images captured the resulting fire damage.');
-			//$("#slider").slider("values", "0", 1);
-	  }
-	displayImg(slideEnd);
-	console.log('adustjest slider',val,slideEnd);
-}
-
-function getRealValue(sliderValue) {
-	for (var i = 0; i < value.length; i++) {
-		
-		if (value[i] >= sliderValue) {
-			return (i);
-		}
-	}
-	return 0;
-}
-	
-function displayImage(val){
-	displayImg(val);
-
-}
-	
-String.prototype.replaceAt=function(index, character) {
-	return this.substr(0, index) + character + this.substr(index+character.length);
-}
-
-    function displayImg(val)
-    {
-		/* console.log("thirumal", val); */
-        var roundVal = Number(String(val).split(".")[0]);
-        var decimalAfterVal = Number(String(val).split(".")[1]);
-        var nxtImg = -1;
-        var decimalFirstVal = Number(String(val).replaceAt(0, "0"));
-console.log("thirumal",val, decimalFirstVal);
-        if (decimalFirstVal+'' != 'undefined' && ! isNaN(decimalFirstVal))
-        {
-            nxtImg = roundVal + 1;
-        }else{
-            //decimalFirstVal = 0;
-        }
-
-        if (nxtImg != -1)
-        {
-            //console.log(decimalFirstVal)
-            var inc = decimalFirstVal;
-            var dec = 100-decimalFirstVal;
-			var sliderPer=100-val;
-			console.log(sliderPer,decimalFirstVal)
-			
-            //$('.textDiv').html(data[0].description[nxtImg-2]); 
-
-           /*   $(".imgC").css({'-ms-filter':'"progid:DXImageTransform.Microsoft.Alpha(Opacity='+0+')"', 
-            'filter': 'alpha(opacity='+0+')',
-            '-moz-opacity':(0/100),
-            '-khtml-opacity': (0/100),
-           'opacity': (0/100)});
-
-           $(".img"+roundVal).css({'-ms-filter':'"progid:DXImageTransform.Microsoft.Alpha(Opacity='+dec+')"', 
-            'filter': 'alpha(opacity='+dec+')',
-            '-moz-opacity':(dec/100),
-            '-khtml-opacity': (dec/100),
-           'opacity': (dec/100)});
-
-            $(".img"+nxtImg).css({'-ms-filter':'"progid:DXImageTransform.Microsoft.Alpha(Opacity='+inc+')"', 
-            'filter': 'alpha(opacity='+inc+')',
-            '-moz-opacity':(inc),
-            '-khtml-opacity': (inc),
-           'opacity': (inc)}); */
-		   
-		   $(".sliderR").css({'width': sliderPer+'%'});
-        }
-
-        /*
-        {'-ms-filter':'"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"', 
-        'filter': 'alpha(opacity=50)',
-        '-moz-opacity':'0.5',
-        '-khtml-opacity': '0.5',
-       'opacity': '0.5'}*/
-    }
-$('.ui-slider-handle').addClass('customPlayhead')
-$('.ui-slider,.ui-slider-range').addClass('sliderRange');
-//$('#text_container').html(direction_text);
-//$('#text_container').attr('aria-label',$('#text_container').text())
-
 
 
 	$('#handle').attr('aria-label',$('#heading_text').text());
@@ -305,17 +93,11 @@ $('.ui-slider,.ui-slider-range').addClass('sliderRange');
 		}
 		
 	}
-	if (/MSIE 10/i.test(navigator.userAgent) || /MSIE 9/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent) ||/Edge\/\d./i.test(navigator.userAgent)) {
-
-		$('#handle').append('<style>#handle:after{font-size:20px;margin-top:5px;}</style>');
-		
-	}
 			
 });
 $(window).resize(function(){
   resizeApp();
-  
-  //
+
 });	
 
 
@@ -390,10 +172,6 @@ function touchHandler(event){
 		case "touchend":   type="mouseup"; break;
 		default: return;
 	}
-
-			//initMouseEvent(type, canBubble, cancelable, view, clickCount,
-	//           screenX, screenY, clientX, clientY, ctrlKey,
-	//           altKey, shiftKey, metaKey, button, relatedTarget);
 	
 	var simulatedEvent = document.createEvent("MouseEvent");
 	simulatedEvent.initMouseEvent(type, true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0, null);
